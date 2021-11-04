@@ -1,3 +1,9 @@
+body {
+    background: #36393F;
+    color: #cbcfd4;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+  }
+
 .img{
     border-radius : 50%;
     height: 20%;

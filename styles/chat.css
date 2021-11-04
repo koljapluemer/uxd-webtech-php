@@ -1,0 +1,91 @@
+
+body {
+    background: #36393F;
+    color: #cbcfd4;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+  }
+  
+  html, body, header, main, div, header, h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #cbcfd4;
+  }
+  
+  body {
+    border: 2px solid #333;
+    margin: 12px;
+  }
+  
+  #name {
+    color: #fff
+  }
+  
+  main {
+    padding: 12px 24px;
+    font-size: 18px;
+  }
+  
+  header {
+    border-bottom: 2px solid #333;
+    background: #222326;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  h1 {
+    border-right: 1px solid #fff;
+    padding: 0 12px;
+    margin: 12px 0;
+    font-size: 22px;
+    line-height: 22px;
+  }
+  
+  #remove-friend {
+    color: #9c5f5f
+  }
+  
+  #msg-form {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-top: 24px;
+  }
+  
+  #msg-input {
+    flex-grow: 1;
+    font-size: 18px;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    background: #52545c;
+    color: #cbcfd4;
+  }
+  
+  #msg-send {
+    font-size: 18px;
+    padding: 8px 32px;
+    border: none;
+    border-radius: 8px;
+    background: #5865F2;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  #msg-send:hover {
+    filter: brightness(.85);
+  }
+  
+  .name {
+    font-weight: bold;
+  }
+  
+  .message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+  }
