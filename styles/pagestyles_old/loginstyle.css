@@ -1,0 +1,21 @@
+
+
+input[type=text] {
+  width: 100%;
+  padding: 15px 20px;
+  margin: 10px 0 15px 0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background: #52545c;
+  border: none;
+}
+
+/* 
+input[type=text]:focus {
+  border: 3px solid #555;
+} */
+
+fieldset{
+  border: 3px solid #242830;
+  border-radius: 10px;
+}

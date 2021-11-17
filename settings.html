@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/main.css">
     <title>Document</title>
 </head>
+
 <body>
     <form>
-     <h1>Profile Settings</h1>
-     <fieldset>
-        <legend>Base Data</legend>
-        <label for="firstName">First Name</label>
+        <h1>Profile Settings</h1>
+        <fieldset>
+            <legend>Base Data</legend>
+            <label for="firstName">First Name</label>
             <input type="text" id="firstName" name="firstname"><br>
-        <label for="lastName">Last Name</label>
+            <label for="lastName">Last Name</label>
             <input type="text" id="lastName" name="lastname"><br>
-        <label for="drink">Coffee or Tea?</label>
+            <label for="drink">Coffee or Tea?</label>
             <select name="drink" id="drink">
                 <option value="coffee">Coffee</option>
                 <option value="tea">Tea</option>
                 <option selected value="neitherNor">Neither nor</option>
             </select>
-    </fieldset>
-    <fieldset> 
-        <legend>Tell Something About You</legend>
-        <textarea name="comment" width="30" height="20">Leave a comment here</textarea>
-    </fieldset>
+        </fieldset>
+        <fieldset>
+            <legend>Tell Something About You</legend>
+            <textarea name="comment" width="30" height="20">Leave a comment here</textarea>
+        </fieldset>
+        <fieldset>
+            <label for="oneline-true">Username and message in one line</label>
+            <input type="radio" name="oneline" id="oneline-true" value="true">
+
+            <label for="oneline-false">Username and message in separated lines</label>
+            <input type="radio" name="oneline" id="oneline-false" value="false">
+        </fieldset>
+        
     </form>
 
 
     <a href="/friends.html">Abort</a>
 </body>
+
 </html>
