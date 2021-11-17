@@ -1,12 +1,18 @@
 <html>
 
-<head>
+  <head>
+    <title>Webtech | Register</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700&display=swap" rel="stylesheet">
-   
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700&display=swap"
+      rel="stylesheet">
     <link rel="stylesheet" href="./styles/main.css">
-</head>
+
+  </head>
+  
 
 <body>
 
@@ -16,23 +22,31 @@
 
   </header>
   <main>
-  <form action="">
-    <fieldset>
-      <legend>Register</legend>
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" value="" placeholder="Username"> <br>
+    <form action="./friends.html" id="checkSubmission">
+      <fieldset>
+        <legend>Register</legend>
+        <div class="label-input-wrapper">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" value="" placeholder="Username"> <br>
+        </div>
 
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" value="" placeholder="Password"> <br>
+        <div class="label-input-wrapper">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" value="" placeholder="Password"> <br>
+        </div>
+        <div class="label-input-wrapper">
+          <label for="password-conf">Confirm Password</label>
+          <input type="password" name="password-conf" id="password-conf" value="" placeholder="Confirm Password">
+        </div>
+      </fieldset>
 
-      <label for="password-conf">Confirm Password</label>
-      <input type="password" name="password-conf" id="password-conf" value="" placeholder="Confirm Password">
-    </fieldset>
+      <a href="./login.html" class="button">Cancel</a>
+      <input type="submit" class='button button-primary' value="Create Account">
+    </form>
+    <p id="msg"></p>
+  </main>
+<script src="./scripts/register.js" defer></script>
 
-    <a href="/login.html" class="button">Cancel</a>
-    <input type="submit" class='button button-primary' value="Create Account">
-  </form>
-</main>
 </body>
 
 </html>

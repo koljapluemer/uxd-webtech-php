@@ -13,6 +13,14 @@ body {
     margin: 0;
     padding: 0;
   }
+
+  /* RESPONSIVE OR SOMETHING */
+
+  body {
+    width: min(900px, 100%);
+    margin: auto;
+    box-sizing: border-box;
+  }
   
 
 
@@ -48,14 +56,18 @@ a {
     text-decoration: none;
     color: #cbcfd4;
   }
+
+  a:hover {
+    filter: brightness(2);
+  }
   
-  fieldset {
+fieldset {
     display: flex;
     flex-direction: column;
     padding: 12px;
 }
 
-input {
+input, select, textarea, ul {
     flex-grow: 1;
     font-size: 18px;
     padding: 8px;
@@ -89,7 +101,6 @@ ul {
 
 ul li {
   padding: 8px 16px;
-  background: #cbcfd4;
   color: #242830;
   
 }
@@ -110,7 +121,6 @@ just apply it to links as well if you are so inclined */
     border: none;
     border-radius: 8px;
     background: #52545c;
- 
     cursor: pointer;
     margin: 12px 0;
   }
@@ -129,6 +139,12 @@ just apply it to links as well if you are so inclined */
   .name {
     font-weight: bold;
   }
+
+  .time {
+    font-size: 10px;
+    margin-left: 12px;
+    opacity: .6;
+  }
   
   .message {
     display: flex;
@@ -140,6 +156,23 @@ just apply it to links as well if you are so inclined */
     margin-left: 24px;
 }
 
+/* media queries for forms */
+
+.label-input-wrapper {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.label-input-wrapper label {
+  min-width: 25%;
+}
+
+@media only screen and (max-width: 900px) {
+  .label-input-wrapper {
+    flex-direction: column;
+  }
+}
 /* SUBPAGES */
 
 /* SUBPAGE: chat */
@@ -172,6 +205,11 @@ just apply it to links as well if you are so inclined */
     cursor: pointer;
   }
 
+  #chat-wrapper {
+    max-height: 300px;
+    overflow-y: auto
+  }
+
   
   #msg-send:hover {
     filter: brightness(.85);
@@ -183,13 +221,6 @@ just apply it to links as well if you are so inclined */
 
 /* SUBPAGE: logout */
 
-#all{
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    align-content: center;
-    
-} 
 
 #logout-img{
     border-radius : 50%;
@@ -215,4 +246,13 @@ just apply it to links as well if you are so inclined */
 #profile-info {
   border: 1px solid #242830; 
   padding: 12px;
+}
+
+/* SUBPAGE: friends */
+
+/* SUBPAGE: logout */
+#logout-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
