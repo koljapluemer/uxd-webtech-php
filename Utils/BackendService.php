@@ -18,7 +18,7 @@ class BackendService {
         $response = HttpClient::get($url, DEFAULT_TOKEN);
         $users = array();
         foreach ($response as $user) {
-            $users[] = $response;
+            $users[] = $user;
         }
         return $users;
     }

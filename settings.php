@@ -74,6 +74,8 @@
             <input class="button button-primary" type="submit" value="Save">
         </form>
     </main>
+<?php include('components/footer.php'); ?>
+
 </body>
 
 </html>

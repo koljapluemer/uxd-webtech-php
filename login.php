@@ -28,22 +28,43 @@
   <main>
     <div>  
     <div class="container-sm bg-white border p">
-        <form>
+        <form method="post">
             <div class="mb-3 text-center">
               <label for="SignIn" class="form-label">Please Sign In</label>
-              <input type="username" id="username" class="form-control" placeholder="Username">            </div>
+              <input type="text" name="username" id="username" class="form-control" placeholder="Username">            </div>
             <div class="mb-3">
-              <input type="passwort" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary">Register</button>
-                <button type="button" class="btn btn-primary">Login</button>
+                <input type="submit" class="btn btn-primary" value="Login">
             </div>
           </form>
     </div>  
     </div>  
   </main>
 </div>
+<?php 
+include('components/footer.php'); 
+
+// get form data and send to login method in BackendService
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $response = $service->login($username, $password);
+    if ($response !== false) {
+        echo "User $username logged in successfully";
+        // set username and token in session
+        $_SESSION['username'] = $username;
+        $_SESSION['token'] = $response;
+      } else {
+        echo "Login failed...";
+    }
+
+}
+
+?>
 
 </body>
 

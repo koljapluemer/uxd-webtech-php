@@ -25,6 +25,8 @@
     <li><a href="./register.html">Register</a></li>
     <li><a href="./settings.html">Settings</a></li>
   </nav>
+<?php include('components/footer.php'); ?>
+
 </body>
 
 </html>

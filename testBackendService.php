@@ -13,7 +13,7 @@ echo "<h2>Show all users</h2>";
 $users = $service->getAllUsers();
 // loop users
 echo "<ul style='max-height:100px;max-width:250px;overflow-y:auto;background:lightgray'>";
-    foreach ($users[0] as $user) {
+    foreach ($users as $user) {
     echo "<li>";
 
         echo $user;
