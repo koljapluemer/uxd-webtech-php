@@ -55,11 +55,11 @@ function loadChat() {
                 // build each chat message
                 msg = document.createElement('p')
                 msg.className = 'message'
-                info = document.createElement('div')
+                info = document.createElement('small')
                 n = document.createElement('span')
                 t = document.createElement('span')
                 n.className = 'name'
-                n.innerHTML = message.from
+                n.innerHTML = message.from + ', '
                 t.className = 'time'
                 t.innerHTML = new Date(message.time).toLocaleDateString("en-US")
                 info.appendChild(n)
@@ -67,6 +67,7 @@ function loadChat() {
                     // dont duplicate name when one of the members spam messages
                 if (message.from !== previousName) {
                     msg.appendChild(info)
+                    msg.appendChild(document.createElement('br'))
                 }
                 c = document.createElement('content')
                 c.className = 'content'
