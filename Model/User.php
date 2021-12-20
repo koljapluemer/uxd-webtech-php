@@ -3,6 +3,7 @@ namespace Model;
 use JsonSerializable;
 
 class User implements JsonSerializable {
+
     private $username;
     // ggf. weitere Attribute, z.B. description, layout optionen...
 
@@ -13,7 +14,8 @@ class User implements JsonSerializable {
     public function getUsername() {
         return $this->username;
     }
-
+    
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return get_object_vars($this);
     }
