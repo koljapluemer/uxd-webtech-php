@@ -10,42 +10,78 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700&display=swap"
       rel="stylesheet">
-    <link rel="stylesheet" href="./styles/main.css">
+    <!-- <link rel="stylesheet" href="./styles/main.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
   </head>
   
 
 <body>
+  <div class="container">
   <header>
     <h1>Friends</h1>
-    <p>&lt; <a class="button" href="./logout.html">Logout</a> | <a class="button"
-        href="./settings.html">Settings</a> </p>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary">&lt;Logout></button>
+        <button type="button" class="btn btn-secondary">Edit Profile</button>
+    </div>
   </header>
+  <hr>
   <main>
-    <ul id="friendlist">
-      <!-- the link tags here a closed twice -->
-      <li><a href="./chat.html">Tom(3)</li>
-      <li><a href="#">Marvin(1)</a></li>
-      <li><a href="#">Tick</a></li>
-      <li><a href="#">Trick</a></li>
-    </ul>
+    <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-start">Tom<span class="badge bg-primary rounded-circle">3</span></li>
+        
+        <li class="list-group-item d-flex justify-content-between align-items-start">Marvin<span class="badge bg-primary rounded-circle">1</span></li>
+        
+        <li class="list-group-item">Tick</li>
+        <li class="list-group-item">Trick</li>
+        
+      </ul>
     <hr>
     <h2>New Request</h2>
-    <ol>
-      <li>Friend request from Track</li>
-    </ol>
+    <ul class="list-group">
+        <li class="list-group-item">Friend request from 
+            <button type="button" class="btn" data-toggle='modal' data-target='#dialog'>Track</button>
+        </li>
+    </ul>
+    <button data-bs-toggle="modal" data-bs-target="#dialog">Test</button>
+    <!-- modal -->
+    <div class="modal fade" id="dialog" role="dialog">    
+        <div class="modal-dialog">        
+            <div class="modal-content">            
+                <div class="modal-header">                
+                    <h4 class="modal-title">Titel</h4>                
+                    <button type="button" class="btn-close"                     
+                    data-dismiss="modal"></button>            
+                </div>            
+                <div class="modal-body">                
+                    <div class="container">                    
+                        <p>Inhalt</p>                
+                    </div>            
+                </div>            
+                <div class="modal-footer">                
+                    <button type="button" class="btn btn-primary btn-block"                     
+                    onclick="accept()">Login (im footer)</button>            
+                </div>        
+            </div>    
+        </div>
+    </div>
     <hr>
-    <form autocomplete="off" onsubmit="return validateName()">
-
-      <input autocomplete="off" type="text" placeholder="Add Friend to List" id="username" name="username">
-      <input class="button" type="submit" value="Add">
-
-
-      <div id="recommendations">Start typing to see friend recommendations...</div>
-    </form>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Add Friend to list" aria-describedby="basic-addon2">
+        <button class="btn btn-primary" type="button" id="button-addon2">Add</button>
+      </div>
   </main>
+</div>  
+  <script>
+      function accept() {
+        let myModalEl = document.getElementById('dialog')
+        let modal = bootstrap.Modal.getOrCreateInstance(myModalEl)
+        modal.show();
+      }    
+    
 
-  <script src='./scripts/friends.js'></script>
+  </script>
 </body>
 
 </html>
