@@ -2,6 +2,7 @@
 namespace Utils;
 use Model\User;
 use Model\Message;
+use Model\Friend;
 
 class BackendService {
     private $server;
@@ -75,19 +76,21 @@ class BackendService {
         try {
             $url = "$this->server/$this->collectionId/user/" . $user->getUsername();
             $data = $user->jsonSerialize();
-            HttpClient::put($url, $data, $token);
+
+            $response = HttpClient::post($url, $data, $token);
+            $user = User::fromJson($response);
+            return $user;
         } catch(\Exception $e) {
             error_log("Authentification failed: $e");
-            return false;
         }
     }
 
-    public function loadFriends($username, $token) {
+    public function loadFriends($token) {
         try {
-            $data = HttpClient::get("$this->server/$this->collectionId/user/$username/friends", $token);
+            $data = HttpClient::get("$this->server/$this->collectionId/friend", $token);
             $friends = array();
             foreach ($data as $friend) {
-                $friends[] = User::fromJson($friend);
+                $friends[] = Friend::fromJson($friend);
             }
             return $friends;
         } catch(\Exception $e) {
@@ -96,54 +99,57 @@ class BackendService {
         }
     }
 
-    public function friendRequest($username, $friend, $token) {
+    public function friendRequest(Friend $friend, $token) {
         try {
-            $url = "$this->server/$this->collectionId/user/$username/friends/$friend";
-            HttpClient::post($url, array(), $token);
+            $data = HttpClient::post("$this->server/$this->collectionId/friend", array("username" => $friend), $token);
+            return true;
         } catch(\Exception $e) {
             error_log("Authentification failed: $e");
             return false;
         }
     }
 
-    public function friendAccept($username, $friend, $token) {
+    public function friendAccept(Friend $friend, $token) {
         try {
-            $url = "$this->server/$this->collectionId/user/$username/friends/$friend/accept";
-            HttpClient::post($url, array(), $token);
+            $url = "$this->server/$this->collectionId/friend/$friend";
+            HttpClient::put($url, array("status" => "accepted"), $token);
+            return true;
         } catch(\Exception $e) {
             error_log("Authentification failed: $e");
             return false;
         }
     }
 
-    public function friendDismiss($username, $friend, $token) {
+    public function friendDismiss(Friend $friend, $token) {
         try {
-            $url = "$this->server/$this->collectionId/user/$username/friends/$friend/decline";
-            HttpClient::post($url, array(), $token);
+            $url = "$this->server/$this->collectionId/friend/$friend";
+            HttpClient::put($url, array("status" => "dismissed"), $token);
+            return true;
         } catch(\Exception $e) {
             error_log("Authentification failed: $e");
             return false;
         }
     }
 
-    public function friendRemove($username, $friend, $token) {
+
+    public function friendRemove(Friend $friend, $token) {
         try {
-            $url = "$this->server/$this->collectionId/user/$username/friends/$friend";
+            // get username from friend object
+            $friend_name = $friend->getUsername();
+            $url = "$this->server/$this->collectionId/friend/$friend_name";
+            error_log("<br><br>LOG: Attempting to remove friend: $friend_name with url: $url<br><br>");
             HttpClient::delete($url, $token);
+            return true;
         } catch(\Exception $e) {
-            error_log("Authentification failed: $e");
+            error_log("<br><br>Friend Remove/Authentification failed: $e<br><br>");
             return false;
         }
     }
 
-    public function getUnreadMessages($username, $token) {
+    public function getUnreadMessages($token) {
         try {
-            $data = HttpClient::get("$this->server/$this->collectionId/user/$username/messages", $token);
-            $messages = array();
-            foreach ($data as $message) {
-                $messages[] = Message::fromJson($message);
-            }
-            return $messages;
+            $data = HttpClient::get("$this->server/$this->collectionId/unread", $token);
+            return $data;
         } catch(\Exception $e) {
             error_log("Authentification failed: $e");
             return false;

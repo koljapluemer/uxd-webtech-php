@@ -5,14 +5,30 @@ use JsonSerializable;
 class User implements JsonSerializable {
 
     private $username;
-    // ggf. weitere Attribute, z.B. description, layout optionen...
+    private $password;
+    private $favoriteDinosaur;
 
-    public function __construct($username = null) {
+
+    public function __construct($username = null, $password = null, $favoriteDinosaur = "T-Rex?") {
         $this->username = $username;
+        $this->password = $password;
+        $this->favoriteDinosaur = $favoriteDinosaur;
     }
 
     public function getUsername() {
         return $this->username;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getFavoriteDinosaur() {
+        return $this->favoriteDinosaur;
+    }
+
+    public function setFavoriteDinosaur($favoriteDinosaur) {
+        $this->favoriteDinosaur = $favoriteDinosaur;
     }
     
     #[\ReturnTypeWillChange]
@@ -24,12 +40,13 @@ class User implements JsonSerializable {
         $user = new User();
 
         foreach ($obj as $key => $value) {
-            // verwendet key als Zeichenkette
-            // für den zugriff auf Attribute
             $user->{$key} = $value;
         }
-
         return $user;
+    }
+
+    public function __toString() {
+        return "This is " . $this->username . " and his favorite dinosaur is " . $this->favoriteDinosaur;
     }
 }
 ?>

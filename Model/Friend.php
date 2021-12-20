@@ -6,8 +6,9 @@
     private $username;
     private $status;
 
-    public function __construct($username = null) {
+    public function __construct($username = "Empty Friend", $status = "unknown") {
         $this->username = $username;
+        $this->status = $status;
     }
 
     public function getUsername() {
@@ -18,11 +19,11 @@
         return $this->status;
     }
 
-    // set status 
     public function setStatus($status) {
         $this->status = $status;
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return get_object_vars($this);
     }
@@ -31,12 +32,15 @@
         $friend = new Friend();
 
         foreach ($obj as $key => $value) {
-            // verwendet key als Zeichenkette
-            // für den zugriff auf Attribute
             $friend->{$key} = $value;
         }
 
         return $friend;
+    }
+
+    public function __toString() {
+        error_log("friend: " . $this->username . " " . $this->status);
+        return "Name: " . $this->username . "; Status: " . $this->status;
     }
 
  }
