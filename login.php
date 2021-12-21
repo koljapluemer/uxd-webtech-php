@@ -35,7 +35,7 @@
             <div class="mb-3">
               <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <div class="btn-group mb-3" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary">Register</button>
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
@@ -48,20 +48,24 @@
 include('components/footer.php'); 
 
 // get form data and send to login method in BackendService
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
-
-    $response = $service->login($username, $password);
-    if ($response !== false) {
-        echo "User $username logged in successfully";
-        // set username and token in session
+    $token = $service->login($username, $password);
+    if ($token) {
+        // save token in session
+        $_SESSION['user_token'] = $token;
+        // save username in session
         $_SESSION['username'] = $username;
-        $_SESSION['token'] = $response;
-      } else {
-        echo "Login failed...";
+        // redirect to chat
+        header('Location: friends.php');
     }
-
+    // otherwise show error message
+    else {
+        echo '<div class="alert alert-danger mt-2" role="alert">
+        Username or password is incorrect.
+      </div>';
+    }
 }
 
 ?>

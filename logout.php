@@ -33,7 +33,11 @@
     </div>
     </main>
     </div>
-<?php include('components/footer.php'); ?>
+<?php include('components/footer.php'); 
+// reset the session
+session_unset();
+
+?>
 
   </body>
      
