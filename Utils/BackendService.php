@@ -156,8 +156,6 @@ class BackendService {
         }
     }
 
-
-
     public function test() {
         try {
             return HttpClient::get($this->base . '/test.json');

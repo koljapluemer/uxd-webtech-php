@@ -32,4 +32,16 @@
             ?>
         </div>
     </div>
+
+    <div>
+        <!-- link to chat.php, friends, login, logout, register -->
+        <h4>Links:</h4>
+        <a href="chat.php">Chat</a>
+        <a href="friends.php">Friends</a>
+        <a href="login.php">Login</a>
+        <a href="logout.php">Logout</a>
+        <a href="register.php">Register</a>
+        
+
+    </div>
 </footer>

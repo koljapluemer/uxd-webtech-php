@@ -128,7 +128,7 @@ if ($friends !== false) {
 echo "<hr>";
 echo "<h2>Friend request</h2>";
 // get random user from users array
-$random_user = $users[0][rand(0, count($users[0]) - 1)];
+$random_user = $users[0];
 echo "<b>Attempting to send friend request to user $random_user from $username</b><br>";
 // generate a friend object from random user with status accepted
 $friend = new Model\Friend($random_user, "accepted");
@@ -147,7 +147,7 @@ echo "<br>";
 echo "<br>";
 
 // get random user from users array
-$random_user = $users[0][rand(0, count($users[0]) - 1)];
+$random_user = $users[1];
 echo "<b>Attempting to send friend request to user $random_user from $username</b><br>";
 // generate a friend object from random user with status accepted
 $friend = new Model\Friend($random_user); 
