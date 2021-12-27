@@ -92,18 +92,16 @@
               . '" class="list-group-item d-flex justify-content-between  ">'
               . $name;
             // check if key with the name of the friend exists in unreadMessages
-              if(property_exists($unreadMessages, $name)){
-                echo $unreadMessages->$name !== 0 ? '<span class="badge bg-secondary circle-rounded">' . $unreadMessages->$name . '</span>' : '';
-              }
+            if (property_exists($unreadMessages, $name)) {
+              echo $unreadMessages->$name !== 0 ? '<span class="badge bg-secondary circle-rounded">' . $unreadMessages->$name . '</span>' : '';
+            }
             echo '</a>';
           }
         }
       } else {
         echo "<h2>No friends yet</h2>";
       }
-      // include only friends with a status of 'accepted'
-      // <span class='badge bg-secondary circle-rounded'>3</span>
-      // 
+
       ?>
 
 

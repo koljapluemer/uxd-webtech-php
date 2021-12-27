@@ -19,6 +19,19 @@
 
   use Model\Message;
   use Model\Friend;
+
+  // handle deleting of friend
+  if (!empty($_GET['remove'])) {
+
+    if ($_GET['remove'] == 'remove') {
+      $friend = new Friend( $_SESSION['partner'] );
+      $service->friendRemove($friend, $_SESSION['user_token']);
+      // redirect to friends
+      header('Location: friends.php');
+    }
+  }
+
+
   // if get variable partner exists, save it
   if (!empty($_GET['partner'])) {
     // set session variable partner
@@ -36,7 +49,7 @@
   if (!empty($_POST['message'])) {
     $message = $_POST['message'];
     $to = $_SESSION['partner'];
-    $message = new Message( $to, $message);
+    $message = new Message($to, $message);
     echo "message: " . $message->getMessage() . " to: " . $message->getTo();
     $messageSucceeded =  $service->sendMessage($message,  $_SESSION['user_token']);
     if ($messageSucceeded) {
@@ -70,11 +83,11 @@
           $spacer = $message->from == $_SESSION['username'] ? "ms-5" : "me-5";
           echo $spacer;
           echo "'>";
-          echo "<span class='text-muted'>" . $message->from 
-          . " | "
-          // convert message timestamp to human readable datetime
-          . date("H:i", $message->timestamp)
-          . "</span><br>";
+          echo "<span class='text-muted'>" . $message->from
+            . " | "
+            // convert message timestamp to human readable datetime
+            . date("H:i", $message->timestamp)
+            . "</span><br>";
           echo $message->msg;
           echo "</div>";
         }
@@ -98,12 +111,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
         </div>
         <div class="modal-body">End Friendship?</div>
-        <div class="modal-footer">
+        <form class="modal-footer" action="./chat.php" method="delete">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
-          <a class="btn btn-danger" href="./friends.html" id="remove-friend">Remove Friend</a>
-        </div>
+          <button type="submit" class="btn btn-danger" id="remove-friend" value="remove" name="remove">Remove Friend</button>
+        </form>
       </div>
     </div>
   </div>
