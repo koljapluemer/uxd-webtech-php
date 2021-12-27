@@ -14,7 +14,10 @@
 </head>
 
 <body style="padding-bottom:600px">
-  <div class="container " >
+  <?php
+  include('components/header.php');
+  ?>
+  <div class="container mt-3">
     <header>
       <h1>Friends</h1>
       <div class="btn-group" role="group" aria-label="Basic example">
@@ -25,36 +28,42 @@
     <hr />
     <main>
       <ul class="list-group">
-        <li class="
-              list-group-item
-              d-flex
-              justify-content-between
-              align-items-start
-            ">
-          Tom<span class="badge bg-primary rounded-circle">3</span>
-        </li>
+        <?php
 
-        <li class="
-              list-group-item
-              d-flex
-              justify-content-between
-              align-items-start
-            ">
-          Marvin<span class="badge bg-primary rounded-circle">1</span>
-        </li>
+        use Model\Friend;
+        // load friends from backend service
+        $friends = $service->loadFriends($_SESSION['user_token']);
+        // include only friends with a status of 'accepted'
+        foreach ($friends as $friend) {
+          if ($friend->getStatus() == 'accepted') {
+            echo '<li class="list-group-item">' . $friend->getUsername() . '</li>';
+          }
+        }
+        // <span class='badge bg-secondary circle-rounded'>3</span>
 
-        <li class="list-group-item">Tick</li>
-        <li class="list-group-item">Trick</li>
+
+        ?>
+
+
       </ul>
       <hr />
-      <h2>New Request</h2>
       <ul class="list-group">
-        <li class="list-group-item">
+        <?php
+        foreach ($friends as $friend) {
+          if ($friend->getStatus() == 'requested') {
+            echo '<li class="list-group-item">'
+
+              . '<button class="btn">' . "Friend Request from "  . $friend->getUsername() . '</button>' .
+              '</li>';
+          }
+        }
+        ?>
+        <!-- <li class="list-group-item">
           Friend request from
           <button type="button" class="btn" data-toggle="modal" data-target="#dialog">
             Track
           </button>
-        </li>
+        </li> -->
       </ul>
       <!-- <button data-bs-toggle="modal" data-bs-target="#dialog">Test</button> -->
       <!-- modal -->
@@ -88,16 +97,8 @@
     </main>
   </div>
   <?php
-  include('components/footer.php');
-use Model\Friend;
-  // load friends from backend service
-  $friends = $service->loadFriends($_SESSION['user_token']);
-  var_dump($friends);
-  // loop friends array
-  foreach ($friends as $friend) {
-    var_dump($friend);
-    echo "<br>------------------<br>";
-  }
+
+
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $recipient = $_POST['recipient'];
@@ -105,13 +106,12 @@ use Model\Friend;
     // create a new (potential) friend of class Friend
     $friend = new Friend($recipient, "accepted");
     // send friend request to backend service
-    $requestSucceeded = $service->friendRequest( $friend, $_SESSION['user_token']);
+    $requestSucceeded = $service->friendRequest($friend, $_SESSION['user_token']);
     if ($requestSucceeded) {
       echo "<br>Request sent";
     } else {
       echo "<br>Request failed";
     }
-
   }
 
   ?>

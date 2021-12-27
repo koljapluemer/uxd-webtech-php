@@ -3,8 +3,8 @@
     use JsonSerializable;
 
  class Friend implements JsonSerializable {
-    private $username;
-    private $status;
+    public $username;
+    public $status;
 
     public function __construct($username = "Empty Friend", $status = "unknown") {
         $this->username = $username;
