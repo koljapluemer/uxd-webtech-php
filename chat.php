@@ -48,8 +48,7 @@
   ?>
   <header>
     <div class="btn-group">
-      <a class="btn btn-secondary" href="./friends.html"> &lt; Back</a>
-      <a class="btn btn-secondary" href="./profile.html">Profile</a>
+      <a class="btn btn-secondary" href="./friends.php"> &lt; Back</a>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeFriendModal">
         Remove Friend

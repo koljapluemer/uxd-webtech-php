@@ -14,38 +14,35 @@
 </head>
 
 
-<body class="container">
 
-  <img class='header-img' src="./images/user.png" alt="User Icon" width="100" height="100">
-  <header>
-    <h1>Register yourself</h1>
-
-  </header>
+<body class="container mt-5 pt-5">
+  <?php
+  include('components/header.php');
+  ?>
   <main>
-    <form method="post" id="checkSubmission">
-      <fieldset>
-        <legend>Register</legend>
-        <div class="label-input-wrapper">
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" value="" placeholder="Username"> <br>
+    <div class="container text-center">
+      <img class='header-img rounded-circle' src="./images/user.png" alt="Chat Icon" width="150" height="150">
+    </div>
+    <div class="container-sm bg-white border p-2 m-2">
+      <form method="post">
+        <div class="mb-3 text-center">
+          <label for="SignIn" class="form-label">Please Sign Up</label>
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username">
         </div>
-
-        <div class="label-input-wrapper">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" value="" placeholder="Password"> <br>
+        <div class="mb-3">
+          <input type="password" name="password" class="form-control" id="passwordInput" placeholder="Password">
         </div>
-        <div class="label-input-wrapper">
-          <label for="password-conf">Confirm Password</label>
-          <input type="password" name="password-conf" id="password-conf" value="" placeholder="Confirm Password">
+        <div class="mb-3">
+          <input type="password" name="password-confirm" class="form-control" id="passwordControlInput" placeholder="Repeat Password">
         </div>
-      </fieldset>
-
-      <a href="./login.html" class="button">Cancel</a>
-      <input type="submit" class='button button-primary' value="Create Account">
-    </form>
-    <p id="msg"></p>
+        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+          <a href="./login.php" type="button" class="btn btn-secondary">Login</a>
+          <input type="submit" class="btn btn-primary" value="Register">
+        </div>
+      </form>
+    </div>
   </main>
-  <?php include('components/footer.php'); ?>
+
 
   <?php
 
@@ -53,7 +50,7 @@
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $password_conf = $_POST['password-conf'];
+    $password_conf = $_POST['password-confirm'];
 
     // check if passwords match
     if ($password != $password_conf) {

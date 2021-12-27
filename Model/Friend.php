@@ -44,6 +44,5 @@
         error_log("friend: " . $this->username . " " . $this->status);
         return "Name: " . $this->username . "; Status: " . $this->status;
     }
-
  }
 ?>
