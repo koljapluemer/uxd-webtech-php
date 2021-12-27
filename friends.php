@@ -14,11 +14,58 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 
-<body style="padding-bottom:600px">
-  <?php
-  include('components/header.php');
-  ?>
-  <div class="container mt-3">
+<body>
+
+  <div class="container mt-5">
+    <?php
+    include('components/header.php');
+    use Model\Friend;
+    // POST means new friend request
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $recipient = $_POST['recipient'];
+      echo "recipient: " . $recipient;
+      $friend = new Friend($recipient, "accepted");
+      // send friend request to backend service
+      $requestSucceeded = $service->friendRequest($friend, $_SESSION['user_token']);
+      if ($requestSucceeded) {
+        echo "<br>Request sent";
+      } else {
+        echo "<br>Request failed";
+      }
+    }
+
+    // PUT (or rather, GET) means declining accepting one
+    // but normal page load is also get, so we also check if we have interesting variables
+    // otherwise, we just do nothing
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
+      var_dump($_GET);
+      // get the first key value pair from _GET, that's the friend and desired action
+      $key = array_keys($_GET)[0];
+      $value = $_GET[$key];
+      echo "key: " . $key . " value: " . $value;
+      // if value is decline, we do friendDismiss, if it's accept, we do friendAccept with the key as username
+      if ($value === "decline") {
+        $friend = new Friend($key, "dismissed");
+        $dismissSucceeded = $service->friendDismiss($friend, $_SESSION['user_token']);
+        if ($dismissSucceeded) {
+          echo "<br>Dismissed";
+        } else {
+          echo "<br>Dismiss failed";
+        }
+      } else if ($value === "accept") {
+        $friend = new Friend($key, "accepted");
+        $acceptSucceeded = $service->friendAccept($friend, $_SESSION['user_token']);
+        if ($acceptSucceeded) {
+          echo "<br>Accepted";
+        } else {
+          echo "<br>Accept failed";
+        }
+      }
+    }
+
+
+    ?>
     <header>
       <h1>Friends</h1>
       <div class="btn-group" role="group" aria-label="Basic example">
@@ -31,13 +78,12 @@
       <ul class="list-group">
         <?php
 
-        use Model\Friend;
         // load friends from backend service
         $friends = $service->loadFriends($_SESSION['user_token']);
         // include only friends with a status of 'accepted'
         foreach ($friends as $friend) {
           if ($friend->getStatus() == 'accepted') {
-            echo '<li class="list-group-item">' . $friend->getUsername() . '</li>';
+            echo '<a href="./chat.php?partner=' . $friend->getUserName() . '" class="list-group-item">' . $friend->getUsername() . '</a>';
           }
         }
         // <span class='badge bg-secondary circle-rounded'>3</span>
@@ -48,26 +94,22 @@
 
       </ul>
       <hr />
-      <ul class="list-group">
+      <form class="list-group" method='put' action="friends.php">
         <?php
+
         foreach ($friends as $friend) {
           if ($friend->getStatus() == 'requested') {
             echo '<li class="list-group-item d-flex justify-content-between align-items-center">'
-              . "<span>Friend Request from "  
-              . $friend->getUsername() 
-              . '</span><div><button class="btn btn-success"><i class="bi-check-circle-fill "></i> Accept</button>' 
-              . '<button class="ms-2 btn btn-danger"><i class="bi-x-circle-fill "></i> Decline</button>'
+              . "<span>Friend Request from "
+              . $friend->getUsername()
+              . '</span><div><button type="submit" value="accept" name="' . $friend->getUsername() . '" class="btn btn-success"><i class="bi-check-circle-fill "></i> Accept</button>'
+              . '<button type="submit" value="decline" name="' . $friend->getUsername() . '" class="ms-2 btn btn-danger"><i class="bi-x-circle-fill "></i> Decline</button>'
               . '</div></li>';
           }
         }
         ?>
-        <!-- <li class="list-group-item">
-          Friend request from
-          <button type="button" class="btn" data-toggle="modal" data-target="#dialog">
-            Track
-          </button>
-        </li> -->
-      </ul>
+
+      </form>
       <!-- <button data-bs-toggle="modal" data-bs-target="#dialog">Test</button> -->
       <!-- modal -->
       <div class="modal fade" id="dialog" role="dialog">
@@ -99,25 +141,7 @@
       </form>
     </main>
   </div>
-  <?php
 
-
-
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $recipient = $_POST['recipient'];
-    echo "recipient: " . $recipient;
-    // create a new (potential) friend of class Friend
-    $friend = new Friend($recipient, "accepted");
-    // send friend request to backend service
-    $requestSucceeded = $service->friendRequest($friend, $_SESSION['user_token']);
-    if ($requestSucceeded) {
-      echo "<br>Request sent";
-    } else {
-      echo "<br>Request failed";
-    }
-  }
-
-  ?>
 
   <script>
     function accept() {

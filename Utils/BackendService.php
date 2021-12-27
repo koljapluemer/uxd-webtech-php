@@ -112,8 +112,8 @@ class BackendService {
 
     public function friendAccept(Friend $friend, $token) {
         try {
-            $url = "$this->server/$this->collectionId/friend/$friend";
-            HttpClient::put($url, array("status" => $friend["status"]), $token);
+            $url = "$this->server/$this->collectionId/friend/" . $friend->getUsername();
+            HttpClient::put($url, array("status" => $friend->getStatus()), $token);
             return true;
         } catch(\Exception $e) {
             error_log("Authentification failed: $e");
@@ -123,8 +123,8 @@ class BackendService {
 
     public function friendDismiss(Friend $friend, $token) {
         try {
-            $url = "$this->server/$this->collectionId/friend/$friend";
-            HttpClient::put($url, array("status" => "dismissed"), $token);
+            $url = "$this->server/$this->collectionId/friend/" . $friend->getUsername();
+            HttpClient::put($url, array("status" => $friend->getStatus()), $token);
             return true;
         } catch(\Exception $e) {
             error_log("Authentification failed: $e");

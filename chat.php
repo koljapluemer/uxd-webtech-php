@@ -15,9 +15,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   </head>
 
-  <body class="container">
+  <body class="container mt-5 pt-5">
+    <?php
+    include('components/header.php');
+    // if get variable partner exists, save it
+    if (!empty($_GET['partner'])) {
+      $partner = $_GET['partner'];
+    }    else {
+      header("Location: friends.php");
+    }
+    ?>
     <header>
-      <h1>Chat with <span class="name">Tom</span></h1>
+      <h1>Chat with <span class="name"><?php echo $partner ?></span></h1>
       <div class="btn-group">
         <a class="btn btn-secondary" href="./friends.html"> &lt; Back</a>
         <a class="btn btn-secondary" href="./profile.html">Profile</a>
@@ -93,7 +102,6 @@
 
     <script src="./scripts/chat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <?php include('components/footer.php'); ?>
 
   </body>
 </html>
