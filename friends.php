@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <!-- <link rel="stylesheet" href="./styles/main.css"> -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 
 <body style="padding-bottom:600px">
@@ -51,10 +52,12 @@
         <?php
         foreach ($friends as $friend) {
           if ($friend->getStatus() == 'requested') {
-            echo '<li class="list-group-item">'
-
-              . '<button class="btn">' . "Friend Request from "  . $friend->getUsername() . '</button>' .
-              '</li>';
+            echo '<li class="list-group-item d-flex justify-content-between align-items-center">'
+              . "<span>Friend Request from "  
+              . $friend->getUsername() 
+              . '</span><div><button class="btn btn-success"><i class="bi-check-circle-fill "></i> Accept</button>' 
+              . '<button class="ms-2 btn btn-danger"><i class="bi-x-circle-fill "></i> Decline</button>'
+              . '</div></li>';
           }
         }
         ?>
