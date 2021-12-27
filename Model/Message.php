@@ -3,18 +3,19 @@ namespace Model;
 use JsonSerializable;
 
 class Message implements JsonSerializable {
-    private $username;
+    private $to;
     private $message;
-    private $timestamp;
+    public $timestamp;
+    public $msg;
 
-    public function __construct($username = null, $message = null, $timestamp = null) {
-        $this->username = $username;
+    public function __construct($to=null, $message = null, $timestamp = null) {
+        $this->to = $to;
         $this->message = $message;
         $this->timestamp = $timestamp;
     }
 
-    public function getUsername() {
-        return $this->username;
+    public function getTo() {
+        return $this->to;
     }
 
     public function getMessage() {
@@ -25,6 +26,11 @@ class Message implements JsonSerializable {
         return $this->timestamp;
     }
 
+    public function getMsg() {
+        return $this->msg;
+    }
+
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return get_object_vars($this);
     }
@@ -39,5 +45,9 @@ class Message implements JsonSerializable {
         }
 
         return $message;
+    }
+
+    public function __toString() {
+        return "To: " . $this->to . "; Message: " . $this->message . "; Timestamp: " . $this->timestamp;
     }
 }

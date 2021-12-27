@@ -157,6 +157,33 @@ class BackendService {
         }
     }
 
+    public function listMessages(Friend $friend, $token) {
+        try {
+            $url = "$this->server/$this->collectionId/message/" . $friend->getUsername();
+            $data = HttpClient::get($url, $token);
+            $messages = array();
+            foreach ($data as $message) {
+                $messages[] = Message::fromJson($message);
+            }
+            return $messages;
+        } catch(\Exception $e) {
+            error_log("Authentification failed: $e");
+            return false;
+        }
+    }
+
+    public function sendMessage(Message $message, $token) {
+        try {
+            $url = "$this->server/$this->collectionId/message";
+            $data = $message->jsonSerialize();
+            HttpClient::post($url, $data, $token);
+            return true;
+        } catch(\Exception $e) {
+            error_log("Authentification failed: $e");
+            return false;
+        }
+    }
+
     public function test() {
         try {
             return HttpClient::get($this->base . '/test.json');
