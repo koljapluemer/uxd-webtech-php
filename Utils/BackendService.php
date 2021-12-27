@@ -89,6 +89,7 @@ class BackendService {
         try {
             $data = HttpClient::get("$this->server/$this->collectionId/friend", $token);
             $friends = array();
+            error_log("DEBUG loadFriends: " . print_r($data, true));
             foreach ($data as $friend) {
                 $friends[] = Friend::fromJson($friend);
             }
@@ -101,7 +102,7 @@ class BackendService {
 
     public function friendRequest(Friend $friend, $token) {
         try {
-            $data = HttpClient::post("$this->server/$this->collectionId/friend", array("username" => $friend), $token);
+            $data = HttpClient::post("$this->server/$this->collectionId/friend", array("username" => $friend->getUsername()), $token);
             return true;
         } catch(\Exception $e) {
             error_log("Authentification failed: $e");
@@ -112,7 +113,7 @@ class BackendService {
     public function friendAccept(Friend $friend, $token) {
         try {
             $url = "$this->server/$this->collectionId/friend/$friend";
-            HttpClient::put($url, array("status" => "accepted"), $token);
+            HttpClient::put($url, array("status" => $friend["status"]), $token);
             return true;
         } catch(\Exception $e) {
             error_log("Authentification failed: $e");
