@@ -24,7 +24,7 @@
   if (!empty($_GET['remove'])) {
 
     if ($_GET['remove'] == 'remove') {
-      $friend = new Friend( $_SESSION['partner'] );
+      $friend = new Friend($_SESSION['partner']);
       $service->friendRemove($friend, $_SESSION['user_token']);
       // redirect to friends
       header('Location: friends.php');
@@ -50,7 +50,6 @@
     $message = $_POST['message'];
     $to = $_SESSION['partner'];
     $message = new Message($to, $message);
-    echo "message: " . $message->getMessage() . " to: " . $message->getTo();
     $messageSucceeded =  $service->sendMessage($message,  $_SESSION['user_token']);
     if ($messageSucceeded) {
       echo "Message sent!";
@@ -74,24 +73,7 @@
     <!-- this is kind of a form but we dont want page reload... -->
     <div id="chat">
       <div id="chat-wrapper" class="border p-3 mt-3 mb-3" style="max-height: 60vh; overflow-y:auto;">
-        <?php
-        // get messages from server
-        $messages = $service->listMessages(new Friend($_SESSION['partner']), $_SESSION['user_token']);
-        // print messages
-        foreach ($messages as $message) {
-          echo "<div class='list-item bg-light p-3 border mb-2 ";
-          $spacer = $message->from == $_SESSION['username'] ? "ms-5" : "me-5";
-          echo $spacer;
-          echo "'>";
-          echo "<span class='text-muted'>" . $message->from
-            . " | "
-            // convert message timestamp to human readable datetime
-            . date("H:i", $message->timestamp)
-            . "</span><br>";
-          echo $message->msg;
-          echo "</div>";
-        }
-        ?>
+        ... loading chat
       </div>
       <form action="./chat.php" method="post">
         <div class="input-group">
@@ -120,7 +102,12 @@
       </div>
     </div>
   </div>
-
+  <script>
+    window.chatToken = "<?= $_SESSION['user_token'] ?>";
+    window.chatCollectionId = "<?= CHAT_SERVER_ID ?>";
+    window.chatServer = "<?= CHAT_SERVER_URL ?>";
+    window.partner = "<?= $_SESSION['partner'] ?>";
+  </script>
   <script src="./scripts/chat.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
