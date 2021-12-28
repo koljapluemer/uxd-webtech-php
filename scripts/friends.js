@@ -54,9 +54,9 @@ function getAllUsers() {
             }
         }
     };
-    xmlhttp.open("GET", `${conf.server}/chat/${conf.id}/user`, true);
+    xmlhttp.open("GET", `${chatServer}/chat/${chatCollectionId}/user`, true);
     // Add token, e. g., from Tom
-    xmlhttp.setRequestHeader('Authorization', `Bearer ${conf.token}`);
+    xmlhttp.setRequestHeader('Authorization', `Bearer ${chatToken}`);
     xmlhttp.send();
 }
 

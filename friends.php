@@ -174,7 +174,11 @@
 
     </form>
   </main>
-
+  <script>
+    window.chatToken = "<?= $_SESSION['user_token'] ?>";
+    window.chatCollectionId = "<?= CHAT_SERVER_ID ?>";
+    window.chatServer = "<?= CHAT_SERVER_URL ?>";
+  </script>
 
   <script>
     function accept() {
