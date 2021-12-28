@@ -22,33 +22,8 @@
   if (isset($_SESSION['user_token'])) {
     header('Location: logout.php');
   }
-  ?>
-  <main>
-    <div class="container text-center">
-      <img class='header-img rounded-circle' src="./images/user.png" alt="Chat Icon" width="150" height="150">
-    </div>
-    <div class="container-sm bg-white border p-2 m-2">
-      <form method="post">
-        <div class="mb-3 text-center">
-          <label for="SignIn" class="form-label">Please Sign Up</label>
-          <input type="text" name="username" id="username" class="form-control" placeholder="Username">
-        </div>
-        <div class="mb-3">
-          <input type="password" name="password" class="form-control" id="passwordInput" placeholder="Password">
-        </div>
-        <div class="mb-3">
-          <input type="password" name="password-confirm" class="form-control" id="passwordControlInput" placeholder="Repeat Password">
-        </div>
-        <div class="btn-group mb-3" role="group" aria-label="Basic example">
-          <a href="./login.php" type="button" class="btn btn-secondary">Login</a>
-          <input type="submit" class="btn btn-primary" value="Register">
-        </div>
-      </form>
-    </div>
-  </main>
 
 
-  <?php
 
   // get form data and send to register backend service
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -86,6 +61,37 @@
   }
 
   ?>
+  <main>
+    <div class="container text-center">
+      <img class='header-img rounded-circle' src="./images/user.png" alt="Chat Icon" width="150" height="150">
+    </div>
+    <div class="container-sm bg-white border p-2 m-2">
+      <form method="post" id="checkSubmission">
+        <div class="mb-3 text-center">
+          <label for="SignIn" class="form-label">Please Sign Up</label>
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username">
+        </div>
+        <div class="mb-3">
+          <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div class="mb-3">
+          <input type="password" name="password-confirm" class="form-control" id="password-confirm" placeholder="Repeat Password">
+        </div>
+        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+          <a href="./login.php" type="button" class="btn btn-secondary">Login</a>
+          <input type="submit" class="btn btn-primary" value="Register">
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    window.chatToken = "<?= $_SESSION['user_token'] ?>";
+    window.chatCollectionId = "<?= CHAT_SERVER_ID ?>";
+    window.chatServer = "<?= CHAT_SERVER_URL ?>";
+  </script>
+
+<script src="./scripts/register.js"></script>
 
 </body>
 
