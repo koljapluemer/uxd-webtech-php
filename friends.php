@@ -18,6 +18,11 @@
   <?php
   include('components/header.php');
 
+   // if user token not set, redirect to login page
+   if (!isset($_SESSION['user_token'])) {
+    header('Location: login.php');
+  }
+
   use Model\Friend;
   // POST means new friend request
 
@@ -106,6 +111,7 @@
 
 
     </ul>
+    <h2 class="mt-2 mb-2" >Friend Requests</h2>
     <form class="list-group" method='put' action="friends.php">
 
       <?php

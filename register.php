@@ -18,6 +18,10 @@
 <body class="container mt-5 pt-5">
   <?php
   include('components/header.php');
+  // if already logged in, redirect to logout
+  if (isset($_SESSION['user_token'])) {
+    header('Location: logout.php');
+  }
   ?>
   <main>
     <div class="container text-center">

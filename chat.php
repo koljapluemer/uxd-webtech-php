@@ -17,6 +17,11 @@
   <?php
   include('components/header.php');
 
+  // if user token not set, redirect to login page
+  if (!isset($_SESSION['user_token'])) {
+    header('Location: login.php');
+  }
+
   use Model\Message;
   use Model\Friend;
 
