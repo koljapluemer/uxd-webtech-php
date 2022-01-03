@@ -65,6 +65,7 @@
     <div class="container text-center">
       <img class='header-img rounded-circle' src="./images/user.png" alt="Chat Icon" width="150" height="150">
     </div>
+    <div id="msg" class="alert alert-danger"></div>
     <div class="container-sm bg-white border p-2 m-2">
       <form method="post" id="checkSubmission">
         <div class="mb-3 text-center">
@@ -85,13 +86,8 @@
     </div>
   </main>
 
-  <script>
-    window.chatToken = "<?= $_SESSION['user_token'] ?>";
-    window.chatCollectionId = "<?= CHAT_SERVER_ID ?>";
-    window.chatServer = "<?= CHAT_SERVER_URL ?>";
-  </script>
 
-<script src="./scripts/register.js"></script>
+  <script src="./scripts/register.js"></script>
 
 </body>
 

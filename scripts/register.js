@@ -1,40 +1,51 @@
+function checkForm() {
+
+    if (username.classList.contains('is-invalid')) {
+        username.classList.remove('is-invalid')
+    }
+    if (password.classList.contains('is-invalid')) {
+        password.classList.remove('is-invalid')
+    }
+    if (passwordConfirm.classList.contains('is-invalid')) {
+        passwordConfirm.classList.remove('is-invalid')
+    }
+    msg.innerHTML = ''
+
+    if (username.value.length < 3) {
+        username.classList.remove('is-valid')
+        username.classList.add('is-invalid')
+        msg.innerHTML += 'Username must be at least three characters long <br>'
+    } else {
+        username.classList.add('is-valid')
+    }
+    if (password.value.length < 8) {
+        password.classList.remove('is-valid')
+        password.classList.add('is-invalid')
+        msg.innerHTML += 'Password must be at least eight characters long <br>'
+    } else {
+        password.classList.add('is-valid')
+    }
+    if (password.value != passwordConfirm.value) {
+        passwordConfirm.classList.remove('is-valid')
+        passwordConfirm.classList.add('is-invalid')
+        msg.innerHTML += 'Passwords do not match <br>'
+    } else if (password.value.length >= 8) {
+        passwordConfirm.classList.add('is-valid')
+    }
+
+    if (msg.innerHTML == '') {
+        msg.style.display = 'none'
+    } else {
+        msg.style.display = 'block'
+    }
+}
+
 username = document.getElementById('username')
 password = document.getElementById('password')
 passwordConfirm = document.getElementById('password-confirm')
+msg = document.getElementById('msg')
+msg.style.display = 'none'
 
-document.getElementById('checkSubmission').onsubmit = function(evt) {
-
-    username.style.border = "1px solid green";
-    password.style.border = "1px solid green";
-    passwordConfirm.style.border = "1px solid green";
-    msg.innerHTML = ''
-
-    isValid = true
-
-
-
-    if (username.value.length < 3) {
-        msg.innerHTML += '»Name« bitte ausfüllen <br>'
-        username.style.border = "1px solid red";
-        isValid = false
-    }
-    if (password.value.length < 8) {
-        msg.innerHTML += 'Passwort muss mind. 8 Zeichen haben <br>'
-        password.style.border = "1px solid red";
-        isValid = false
-
-    }
-    if (password.value != input3.value) {
-        msg.innerHTML += 'Passworter stimmen nicht überein <br>'
-        input3.style.border = "1px solid red";
-        isValid = false
-
-    }
-
-    if (isValid) {
-        msg.innerHTML = 'Registrierung erfolgreich'
-    } else {
-        evt.preventDefault();
-    }
-
-}
+username.addEventListener('keyup', checkForm)
+password.addEventListener('keyup', checkForm)
+passwordConfirm.addEventListener('keyup', checkForm)
