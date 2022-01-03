@@ -47,20 +47,15 @@
   </main>
   <?php
 
-  // get form data and send to login method in BackendService
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $token = $service->login($username, $password);
     if ($token) {
-      // save token in session
       $_SESSION['user_token'] = $token;
-      // save username in session
       $_SESSION['username'] = $username;
-      // redirect to chat
       header('Location: friends.php');
     }
-    // otherwise show error message
     else {
       echo '<div class="alert alert-danger mt-2" role="alert">
         Username or password is incorrect.
